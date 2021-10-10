@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-uWxY/CJNBR+1zjPWmfnSnVxwRheevXITnMqoEIeG1LJrdI0GlVs/9cVSyPYXdcSF" crossorigin="anonymous">
+    <style>
+        .btn {
+            margin-right: 3px;
+        }
+    </style>
+    <!-- Usando Script Vue-->
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <!--Usando Resource-->
+    <script src="https://cdn.jsdelivr.net/npm/vue-resource@1.5.3"></script>
+    <title>Cadastro da Resistência Rebelde</title>
+  </head>
+  <body>
+    <!--Div que será controlada pelo Objeto do Vue no Index.JS-->
+      <div id="app" class="container">
+        <h1>Cadastro de Soldados da Resistência</h1><br><br>
+        <p><b>Os dados abaixo são de preenchimento obrigatório:</b></p>
+        <form>
+            <div class="mb-3">
+                <label for="textNomeSoldado" class="form-label">Nome</label>
+                <input type="text" class="form-control" id="textNomeSoldado" v-model="dadosFormulario.name">
+            </div>
+            <div class="mb-3">
+                <label for="textNomePLaneta" class="form-label">Planeta</label>
+                <input type="text" class="form-control" id="textNomePlaneta" v-model="dadosFormulario.planet">
+            </div>
+            <div class="mb-3">
+                <label for="textDataNascimento" class="form-label">Data de Nascimento</label>
+                <input type="text" class="form-control" id="textDataNascimento" v-model="dadosFormulario.birthDate">
+            </div>
+            <div class="mb-3">
+                <label for="textMotivacao" class="form-label">Motivação para se juntar à Aliança Rebelde:</label>
+                    <textarea class="form-control" placeholder="Escreva sua motivação aqui" id="textMotivacao" v-model="dadosFormulario.description"></textarea>
+                  </div>
+            <href class="btn btn-primary" v-on:click="inserirAtualizar">Inserir/Atualizar</href>
+        </form>
+        <br>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                  <th scope="col">Nome</th>
+                  <th scope="col">Planeta</th>
+                  <th scope="col">Data de nascimento</th>
+                  <th scope="col">Motivação</th>
+                  <th scope="col"></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr v-for="cadastro in listaDeCadastro">
+                  <td>{{cadastro.name}}</td>
+                  <td>{{cadastro.planet}}</td>
+                  <td>{{cadastro.birthDate}}</td>
+                  <td>{{cadastro.description}}</td>
+                  <td>
+                    <href v-on:click="deletaCadastro(cadastro.id)" class="btn btn-danger btn-sm espaco">Excluir</href>
+                    <href v-on:click="voltaDadosFormulario(cadastro)" class="btn btn-info btn-sm">Editar</href>
+                  </td>
+                </tr>
+              </tbody>
+          </table>
+    </div>
+    <script src="index.js"></script>
+  </body>
+</html> 
