@@ -4,14 +4,16 @@ var app = new Vue({
         //URL lista
         //'https://test-mais-a-educacao-v1.herokuapp.com?token=patriciaCorreaBernhardTautz'
         listaDeCadastro:[],
+        listaFiltrada: [],
         dadosFormulario: {
             id:"",
             name:"",
             planet:"",
             birthDate:"",
             description:""
-        }
-     },
+        },
+        search: ''
+    },
     methods: {
         //Faz chamada para API GET ALL buscando todos os cadastros
         buscar: function(){
@@ -19,6 +21,8 @@ var app = new Vue({
             this.$http.get('https://test-mais-a-educacao-v1.herokuapp.com?token=patriciaCorreaBernhardTautz').then(response => {
                  // get lista Cadastro
                 this.listaDeCadastro = response.body;
+                this.search = ""
+                this.filtrar();
             }, response => {
                 // error callback
                 console.log(response.body)
@@ -112,7 +116,18 @@ var app = new Vue({
         dataValida: function (data) {
             var re = /(^(((0[1-9]|1[0-9]|2[0-8])[\/](0[1-9]|1[012]))|((29|30|31)[\/](0[13578]|1[02]))|((29|30)[\/](0[4,6,9]|11)))[\/](19|[2-9][0-9])\d\d$)|(^29[\/]02[\/](19|[2-9][0-9])(00|04|08|12|16|20|24|28|32|36|40|44|48|52|56|60|64|68|72|76|80|84|88|92|96)$)/;
             return re.test(data);
-          }
+        },
+        filtrar: function() {
+            if (this.search == "") {
+                this.listaFiltrada = this.listaDeCadastro;   
+            } else {
+                this.listaFiltrada = this.listaDeCadastro.filter(cadastro => 
+                    cadastro.name.toLowerCase().indexOf(this.search.toLowerCase()) > -1
+                        || cadastro.planet.toLowerCase().indexOf(this.search.toLowerCase()) > -1
+                        || cadastro.birthDate.toLowerCase().indexOf(this.search.toLowerCase()) > -1
+                )
+            }
+        }
     },
     //Especifica uma função que será executada assim que o componente de criação do cadastro for criado
     created: function(){

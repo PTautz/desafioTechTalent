@@ -84,7 +84,16 @@
                   </div>
             <href class="btn btn-primary" v-on:click="inserirAtualizar">Inserir/Atualizar</href>
         </form>
-        <br>
+        <br><br>
+
+        <div class="mb-3">
+          <label for="textFiltro" class="form-label">Filtro (nome, planeta e data de nascimento):</label>
+          <input type="text" v-model="search" class="form-control cinza" />          
+        </div>
+        <href v-on:click="filtrar" class="btn btn-danger espaco">Filtrar</href>
+
+        <br><br>
+        
         <table class="table amarelo-sw">
           <thead>
               <tr>
@@ -96,7 +105,8 @@
               </tr>
             </thead>
             <tbody>
-              <tr v-for="cadastro in listaDeCadastro">
+              <!--Implementação Filtro-->
+              <tr v-for="cadastro in listaFiltrada">
                 <td>{{cadastro.name}}</td>
                 <td>{{cadastro.planet}}</td>
                 <td>{{cadastro.birthDate}}</td>
